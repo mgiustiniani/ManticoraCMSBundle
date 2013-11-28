@@ -1,93 +1,49 @@
 <?php
-namespace Manticora\CMSBundle\Service\Routing;
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-use Doctrine\ORM\EntityManager,
-    Symfony\Component\Routing\RouteCollection,
-    Symfony\Component\Routing\Route,
-    Symfony\Component\Config\Loader\Loader as BaseLoader;
+namespace Manticora\CMSBundle\Service;
 
-/**
- * Description of Loader
- *
- * @author mgiustiniani
- */
-class Loader extends BaseLoader
+use Doctrine\ORM\EntityManager;
+use Manticora\CMSBundle\Entity\Template;
+use Twig_Environment;
+
+class CmsService
 {
     /**
-     *
      * @var \Doctrine\ORM\EntityManager
      */
     protected $em;
 
     /**
+     * @var Twig_Environment
+     */
+    private $twig;
+
+    /**
      * Constructor.
      *
      * @param \Doctrine\ORM\EntityManager $em the Doctrine Entity Manager
+     * @param \Twig_Environment $twig the Twig Environment
      */
-    public function __construct(\Doctrine\ORM\EntityManager $em)
+    public function __construct(\Doctrine\ORM\EntityManager $em, Twig_Environment $twig)
     {
         $this->em = $em;
+        $this->twig = $twig;
     }
 
-    public function load($resource, $type = null)
-    {
-        $tree = $this->em->getRepository('ManticoraCMSBundle:RouteCollection');
-        $collection = new RouteCollection();
-
-        foreach ($tree->getRootNodes() as $node) {
-            $collection = $this->addNode($collection, $node);
-        }
-        return $collection;
+    public function clearCache() {
+        $this->twig->clearTemplateCache();
     }
 
-    public function addNode(RouteCollection $routeCollection, \Manticora\CMSBundle\Entity\RouteCollection $route)
-    {
-        $collection = new RouteCollection();
-
-        //  $collection->addPrefix($route->getPrefix());
-        //  if($route->getHost())
-
-        foreach ($route->getChildren() as $node) {
-            $collection = $this->addNode($collection, $node);
-        }
-
-        foreach ($route->getRoutes() as $rotta) {
-//            if ($rotta instanceof \Manticora\CMSBundle\Entity\ColdfusionProxy) {
-//                $temp = new Route ($rotta->getPath(), array(
-//                    '_controller' => 'EuropcarWebSitesBundle:ColdfusionProxy:index',
-//                    'template' => $rotta->getTemplate()->getName()
-//                ));
-//                $collection->add('Coldfusion' . $rotta->getName(), $temp);
-//            } else
-            if ($rotta instanceof \Manticora\CMSBundle\Entity\StaticRoute) {
-
-                $temp = new Route ($rotta->getPath(), array(
-                    '_controller' => 'FrameworkBundle:Template:template',
-                    'template' => $rotta->getTemplate()->getName()
-                ));
-
-
-                $collection->add($rotta->getName(), $temp);
-                //  if($route->getHost())
-            }
-
-
-        }
-        if ($route->getChildren()->isEmpty()) {
-            $collection->setHost($route->getFullHost());
-        }
-        $routeCollection->addCollection($collection);
-        return $routeCollection;
-
+    public function getTemplate($id) {
+        return $this->em->getRepository('ManticoraCMSBundle:Template')->find($id);
     }
 
-    public function supports($resource, $type = null)
-    {
-        return 'db' === $type;
+    /**
+     * @param Manticora\CMSBundle\Entity\Template template entity
+     */
+    public function saveTemplate(Template $template) {
+        $this->em->persist($template);
+        $this->em->flush();
+        $this->clearCache();
     }
+
 }
-
-?>

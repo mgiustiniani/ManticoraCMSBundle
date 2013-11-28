@@ -1,6 +1,6 @@
 <?php
 
-namespace Manticora\CMSBundle\Form\Type\Template;
+namespace Manticora\CMSBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

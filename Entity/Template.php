@@ -4,6 +4,7 @@ use Doctrine\ORM\Mapping AS ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 /** 
  * @ORM\Entity
+ * @ORM\Table(name="cms_template")
  */
 class Template
 {

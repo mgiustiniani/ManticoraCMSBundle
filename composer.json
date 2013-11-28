@@ -2,7 +2,6 @@
     "name": "manticora/cms-bundle",
     "description": "simple cms bundle",
     "require": {
-        "cedriclombardot/admingenerator-generator-bundle": "2.3.*@ðev",
         "symfony/symfony": "2.3.*",
         "findologic/curl-bundle": "dev-master",
         "norzechowicz/aceeditor-bundle": "1.0.*@dev",

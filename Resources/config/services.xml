@@ -19,6 +19,7 @@
     -->
     
      <parameters>
+        <parameter key="manticora_cms.service.class">Manticora\CMSBundle\Service\CmsService</parameter>
         <parameter key="manticora_cms.db.class">Manticora\CMSBundle\Service\Routing\Loader</parameter>
         <parameter key="manticora_cms.twig_loader.class">Manticora\CMSBundle\Service\Templating\Loader</parameter>
     </parameters>
@@ -31,6 +32,10 @@
          <service id="manticora_cms.twig_loader" class="%manticora_cms.twig_loader.class%">
             <tag name="twig.loader" />
             <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+        <service id="manticora_cms.service" class="%manticora_cms.service.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="twig" />
         </service>
     </services>
 </container>
