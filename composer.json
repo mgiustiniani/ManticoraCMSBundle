@@ -1,0 +1,19 @@
+{
+    "name": "manticora/cms-bundle",
+    "description": "simple cms bundle",
+    "require": {
+        "cedriclombardot/admingenerator-generator-bundle": "2.3.*@ðev",
+        "symfony/symfony": "2.3.*",
+        "findologic/curl-bundle": "dev-master",
+        "norzechowicz/aceeditor-bundle": "1.0.*@ðev",
+        "stof/doctrine-extensions-bundle": "~1.1@dev"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mario Giustiniani",
+            "email": "mariogiustiniani@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
