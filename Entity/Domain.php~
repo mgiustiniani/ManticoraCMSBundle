@@ -1,0 +1,14 @@
+<?php
+namespace Manticora\CMSBundle\Entity;
+use Doctrine\ORM\Mapping AS ORM;
+
+/** 
+ * @ORM\Entity
+ */
+class Domain extends RouteCollectionBase
+{
+    /** 
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $host;
+}

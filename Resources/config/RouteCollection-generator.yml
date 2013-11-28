@@ -1,0 +1,41 @@
+generator: admingenerator.generator.doctrine
+params:
+    model: Manticora\CMSBundle\Entity\RouteCollection
+    namespace_prefix: Manticora
+    entity_manager: default
+    bundle_name: CMSBundle
+    fields: ~
+
+builders:
+    nested_list:
+        params:
+            title: List for CMSBundle
+            display: [title, fullHost, host, prefix]
+            actions:
+                new: ~
+            object_actions:
+                edit: ~
+    filters:
+        params:
+            display: [host, prefix]
+    new:
+        params:
+            title: New object for CMSBundle
+            display: [parent,title, host, prefix]
+            actions:
+                save: ~
+                list: ~
+    edit:
+        params:
+            title: "You're editing the object "
+            display: [parent,title, host, prefix]
+            actions:
+                save: ~
+                list: ~
+    show:
+        params:
+            title: "You're viewing the object"
+            display: [parent,title, host, prefix]
+            actions:
+                list: ~
+                new: ~

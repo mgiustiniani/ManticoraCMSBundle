@@ -1,0 +1,26 @@
+<?php
+namespace Manticora\CMSBundle\Entity;
+use Doctrine\ORM\Mapping AS ORM;
+
+/** 
+ * @ORM\Entity
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="type_id", type="string")
+ * @ORM\DiscriminatorMap(
+ *     {"RouteCollection"="Manticora\CMSBundle\Entity\RouteCollection","Domain"="Manticora\CMSBundle\Entity\Domain"}
+ * )
+ */
+class RouteCollectionBase
+{
+    /** 
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /** 
+     * @ORM\OneToMany(targetEntity="Manticora\CMSBundle\Entity\Route", mappedBy="RouteCollectionBase")
+     */
+    private $Routes;
+}

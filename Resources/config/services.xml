@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <!--
+    <parameters>
+        <parameter key="manticora_cms.example.class">Manticora\CMSBundle\Example</parameter>
+    </parameters>
+
+    <services>
+        <service id="manticora_cms.example" class="%manticora_cms.example.class%">
+            <argument type="service" id="service_id" />
+            <argument>plain_value</argument>
+            <argument>%parameter_name%</argument>
+        </service>
+    </services>
+    -->
+    
+     <parameters>
+        <parameter key="manticora_cms.db.class">Manticora\CMSBundle\Service\Routing\Loader</parameter>
+        <parameter key="manticora_cms.twig_loader.class">Manticora\CMSBundle\Service\Templating\Loader</parameter>
+    </parameters>
+
+    <services>
+        <service id="manticora_cms.db" class="%manticora_cms.db.class%">
+            <tag name="routing.loader" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+         <service id="manticora_cms.twig_loader" class="%manticora_cms.twig_loader.class%">
+            <tag name="twig.loader" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+    </services>
+</container>

@@ -1,0 +1,47 @@
+generator: admingenerator.generator.doctrine
+params:
+    model: Manticora\CMSBundle\Entity\Template
+    entity_manager: default
+    namespace_prefix: Manticora
+    bundle_name: CMSBundle
+    fields: 
+      body:
+        form_type: ace_editor
+        addFormOptions:
+           width: 900
+           height: 600
+           mode: ace/mode/twig
+           theme: ace/theme/eclipse
+builders:
+    list:
+        params:
+            title: List for CMSBundle
+            display: [name]
+            actions:
+                new: ~
+            object_actions:
+                edit: ~
+    filters:
+        params:
+            display: ~
+    new:
+        params:
+            title: New object for CMSBundle
+            display: [name, body]
+            actions:
+                save: ~
+                list: ~
+    edit:
+        params:
+            title: "You're editing the object \"%object%\"|{ %object%: Template.name }|"
+            display: [name, body]
+            actions:
+                save: ~
+                list: ~
+    show:
+        params:
+            title: "You're viewing the object \"%object%\"|{ %object%: Template.name }|"
+            display: [name, body]
+            actions:
+                list: ~
+                new: ~

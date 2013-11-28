@@ -1,0 +1,10 @@
+<?php
+namespace Manticora\CMSBundle\Entity;
+use Doctrine\ORM\Mapping AS ORM;
+
+/** 
+ * @ORM\Entity
+ */
+class AspProxy extends Route
+{
+}

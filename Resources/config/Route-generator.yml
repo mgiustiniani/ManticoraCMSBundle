@@ -1,0 +1,47 @@
+generator: admingenerator.generator.doctrine
+params:
+    model: Manticora\CMSBundle\Entity\StaticRoute
+    namespace_prefix: Manticora
+    entity_manager: ~
+    bundle_name: CMSBundle
+    fields: ~
+    object_actions:
+        delete: ~
+builders:
+    list:
+        params:
+            title: List for CMSBundle
+            display: ~
+            actions:
+                new: ~
+            object_actions:
+                edit: ~
+                delete: ~
+    filters:
+        params:
+            display: ~
+    new:
+        params:
+            title: New object for CMSBundle
+            display: [name, path, Template, RouteCollection]
+            actions:
+                save: ~
+                list: ~
+    edit:
+        params:
+            title: "You're editing the object"
+            display: [name, path, Template, RouteCollection]
+            actions:
+                save: ~
+                list: ~
+    show:
+        params:
+            title: "You're viewing the object"
+            display: [name, path, Template]
+            actions:
+                list: ~
+                new: ~
+    actions:
+        params:
+            object_actions:
+                delete: ~
