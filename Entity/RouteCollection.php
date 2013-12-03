@@ -4,6 +4,7 @@ use Doctrine\ORM\Mapping AS ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 /** 
  * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
+ * @ORM\Table(name="cms_route_collection")
  * @Gedmo\Tree(type="nested")
  */
 class RouteCollection
