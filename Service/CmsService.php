@@ -2,7 +2,9 @@
 namespace Manticora\CMSBundle\Service;
 
 use Doctrine\ORM\EntityManager;
+use Manticora\CMSBundle\Entity\Route;
 use Manticora\CMSBundle\Entity\Template;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Twig_Environment;
 
 class CmsService
@@ -29,12 +31,29 @@ class CmsService
         $this->twig = $twig;
     }
 
+    public function removeRoute(Route $route) {
+        $this->em->remove($route);
+        $this->em->flush();
+    }
+
     public function clearCache() {
         $this->twig->clearTemplateCache();
     }
 
     public function getTemplate($id) {
         return $this->em->getRepository('ManticoraCMSBundle:Template')->find($id);
+    }
+
+    public function renderTemplateFromString($twig_string, $params = array()) {
+        return $this->twig->render($twig_string, $params);
+    }
+
+    public function renderTemplate($id, $params = array()) {
+        if (!$template = $this->getTemplate($id)) {
+            throw new Exception("Template $id not found");
+        }
+
+        return $this->renderTemplateFromString($template->getBody(), $params);
     }
 
     /**

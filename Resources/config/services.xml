@@ -25,6 +25,10 @@
     </parameters>
 
     <services>
+        <service id="manticora_cms.service" class="%manticora_cms.service.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="twig" />
+        </service>
         <service id="manticora_cms.db" class="%manticora_cms.db.class%">
             <tag name="routing.loader" />
             <argument type="service" id="doctrine.orm.entity_manager" />
@@ -33,9 +37,8 @@
             <tag name="twig.loader" />
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
-        <service id="manticora_cms.service" class="%manticora_cms.service.class%">
-            <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument type="service" id="twig" />
+         <service id="manticora_cms.twig_string_loader" class="Twig_Loader_String">
+            <tag name="twig.loader" />
         </service>
     </services>
 </container>

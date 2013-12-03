@@ -72,37 +72,4 @@ class TemplateCategory
     }
 
 
-
-    /**
-     * Add templates
-     *
-     * @param \Manticora\CMSBundle\Entity\Template $templates
-     * @return TemplateCategory
-     */
-    public function addTemplate(\Manticora\CMSBundle\Entity\Template $templates)
-    {
-        $this->templates[] = $templates;
-    
-        return $this;
-    }
-
-    /**
-     * Remove templates
-     *
-     * @param \Manticora\CMSBundle\Entity\Template $templates
-     */
-    public function removeTemplate(\Manticora\CMSBundle\Entity\Template $templates)
-    {
-        $this->templates->removeElement($templates);
-    }
-
-    /**
-     * Get templates
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTemplates()
-    {
-        return $this->templates;
-    }
 }

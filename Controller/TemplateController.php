@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class templateController extends Controller
+class TemplateController extends Controller
 {
     public function previewAction(Request $request)
     {
