@@ -21,27 +21,26 @@ class Route
     private $id;
 
     /** 
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string")
      */
     private $name;
 
     /** 
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string")
      */
     private $path;
 
     /** 
-     * @ORM\ManyToOne(targetEntity="Manticora\CMSBundle\Entity\Template", inversedBy="Routes")
+     * @ORM\ManyToOne(targetEntity="Manticora\CMSBundle\Entity\Template", inversedBy="routes")
      * @ORM\JoinColumn(name="template_id", referencedColumnName="id", nullable=false)
      */
-    private $Template;
+    private $template;
 
     /** 
-     * @ORM\ManyToOne(targetEntity="Manticora\CMSBundle\Entity\RouteCollection", inversedBy="Routes")
+     * @ORM\ManyToOne(targetEntity="Manticora\CMSBundle\Entity\RouteCollection", inversedBy="routes")
      * @ORM\JoinColumn(name="route_collection_id", referencedColumnName="id", nullable=false)
      */
-    private $RouteCollection;
-
+    private $routeCollection;
 
 
     /**
@@ -87,7 +86,7 @@ class Route
      */
     public function setRouteCollection(\Manticora\CMSBundle\Entity\RouteCollection $routeCollection)
     {
-        $this->RouteCollection = $routeCollection;
+        $this->routeCollection = $routeCollection;
 
         return $this;
     }
@@ -99,7 +98,7 @@ class Route
      */
     public function getRouteCollection()
     {
-        return $this->RouteCollection;
+        return $this->routeCollection;
     }
 
     /**
@@ -133,7 +132,7 @@ class Route
      */
     public function setTemplate(\Manticora\CMSBundle\Entity\Template $template)
     {
-        $this->Template = $template;
+        $this->template = $template;
     
         return $this;
     }
@@ -145,6 +144,6 @@ class Route
      */
     public function getTemplate()
     {
-        return $this->Template;
+        return $this->template;
     }
 }

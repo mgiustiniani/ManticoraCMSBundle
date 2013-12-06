@@ -4,58 +4,65 @@ use Doctrine\ORM\Mapping AS ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 /** 
  * @ORM\Entity
+ * @ORM\Table(name="cms_template")
  */
 class Template
 {
-    /** 
+    /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
-    /** 
+    /**
      * @ORM\Column(type="string", unique=true, nullable=true)
      */
     private $name;
 
-    /** 
+    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $body;
 
-    /** 
+    /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $created_at;
 
-    /** 
+    /**
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updated_at;
 
-    /** 
-     * @ORM\OneToMany(targetEntity="Manticora\CMSBundle\Entity\Route", mappedBy="Template")
+    /**
+     * @ORM\OneToMany(targetEntity="Manticora\CMSBundle\Entity\Route", mappedBy="template", cascade={"persist"})
      */
-    private $Routes;
+    private $routes;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Manticora\CMSBundle\Entity\TemplateCategory", inversedBy="templates", cascade={"persist"})
+     * @ORM\JoinColumn(name="template_category_id", referencedColumnName="id", nullable=false)
+     */
+    private $category;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->StaticRoutes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->routes = new \Doctrine\Common\Collections\ArrayCollection();
     }
     public function __toString() {
         return $this->name;
-    } 
+    }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -78,7 +85,7 @@ class Template
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -101,7 +108,7 @@ class Template
     /**
      * Get body
      *
-     * @return string 
+     * @return string
      */
     public function getBody()
     {
@@ -124,7 +131,7 @@ class Template
     /**
      * Get created_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -147,76 +154,58 @@ class Template
     /**
      * Get updated_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
         return $this->updated_at;
     }
 
-    /**
-     * Add StaticRoutes
-     *
-     * @param \Manticora\CMSBundle\Entity\StaticRoute $staticRoutes
-     * @return Template
-     */
-    public function addStaticRoute(\Manticora\CMSBundle\Entity\StaticRoute $staticRoutes)
-    {
-        $this->StaticRoutes[] = $staticRoutes;
-
-        return $this;
-    }
-
-    /**
-     * Remove StaticRoutes
-     *
-     * @param \Manticora\CMSBundle\Entity\StaticRoute $staticRoutes
-     */
-    public function removeStaticRoute(\Manticora\CMSBundle\Entity\StaticRoute $staticRoutes)
-    {
-        $this->StaticRoutes->removeElement($staticRoutes);
-    }
-
-    /**
-     * Get StaticRoutes
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getStaticRoutes()
-    {
-        return $this->StaticRoutes;
-    }
-
-    /**
-     * Add Routes
-     *
-     * @param \Manticora\CMSBundle\Entity\Route $routes
-     * @return Template
-     */
-    public function addRoute(\Manticora\CMSBundle\Entity\Route $routes)
-    {
-        $this->Routes[] = $routes;
-    
-        return $this;
-    }
 
     /**
      * Remove Routes
      *
      * @param \Manticora\CMSBundle\Entity\Route $routes
      */
-    public function removeRoute(\Manticora\CMSBundle\Entity\Route $routes)
+    public function removeRoute(Route $route)
     {
-        $this->Routes->removeElement($routes);
+        $this->routes->removeElement($route);
     }
 
     /**
      * Get Routes
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getRoutes()
     {
-        return $this->Routes;
+        return $this->routes;
     }
+
+    public function addRoute(Route $route)
+    {
+        $route->setTemplate($this);
+        $this->routes->add($route);
+        return $this;
+    }
+
+    public function addStaticRoute(StaticRoute $route) {
+        return $this->addRoute($route);
+    }
+
+    /**
+     * Get StaticRoutes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStaticRoutes() {
+        return $this->getRoutes();
+    }
+
+    public function removeStaticRoute(StaticRoute $route) {
+        $this->removeRoute($route);
+
+    }
+
+
 }

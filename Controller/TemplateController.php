@@ -3,11 +3,21 @@
 namespace Manticora\CMSBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-class DefaultController extends Controller
+class TemplateController extends Controller
 {
-    public function indexAction($name)
+    public function previewAction(Request $request)
     {
-        return $this->render('ManticoraCMSBundle:Default:index.html.twig', array('name' => $name));
+        $cmsService = $this->container->get('manticora_cms.service');
+
+        if (!$twig_string = $request->get('twig')) {
+            throw $this->createNotFoundException('You must post the template string');
+        }
+        $params = ( $request->get('params') != null && is_array($request->get('params')) ? $request->get('params') : array() );
+
+        return new Response($cmsService->renderTemplateFromString($twig_string));
     }
+
 }

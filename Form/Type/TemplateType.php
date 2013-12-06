@@ -13,8 +13,8 @@ class TemplateType extends AbstractType
         $builder->add('name');
         $builder->add('body', 'ace_editor', array(
             'wrapper_attr' => array(), // aceeditor wrapper html attributes.
-            'width' => 900,
-            'height' => 600,
+            'width' => 500,
+            'height' => 400,
             'font_size' => 12,
             'mode' => 'ace/mode/html', // every single default mode must have ace/mode/* prefix
             'theme' => 'ace/theme/xcode', // every single default theme must have ace/theme/* prefix
@@ -24,6 +24,16 @@ class TemplateType extends AbstractType
             'use_wrap_mode' => null,
             'show_print_margin' => null,
             'highlight_active_line' => null
+        ));
+        $builder->add('routes','collection', array(
+            'type' =>  new StaticRouteType(),
+            'allow_add' => true,
+            'allow_delete' => true,
+            'by_reference' => false,
+        ));
+        $builder->add('category','entity', array(
+            'class' => 'Manticora\CMSBundle\Entity\TemplateCategory',
+            'property' => 'name',
         ));
 
     }

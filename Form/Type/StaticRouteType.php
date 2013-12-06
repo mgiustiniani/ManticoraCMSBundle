@@ -1,9 +1,22 @@
 <?php
 
-namespace Manticora\CMSBundle\Form\Type\StaticRoute;
+namespace Manticora\CMSBundle\Form\Type;
 
-use Admingenerated\ManticoraCMSBundle\Form\BaseStaticRouteType\EditType as BaseEditType;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class EditType extends BaseEditType
+class StaticRouteType extends RouteType
 {
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'Manticora\CMSBundle\Entity\StaticRoute'
+        ));
+    }
+
+    public function getName()
+    {
+        return 'cms_route';
+    }
+
 }

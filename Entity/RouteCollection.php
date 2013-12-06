@@ -27,8 +27,8 @@ class RouteCollection
 
     /** 
      * 
-     @ORM\OneToMany(targetEntity="Manticora\CMSBundle\Entity\Route", mappedBy="RouteCollection")*/
-    private $Routes;
+     @ORM\OneToMany(targetEntity="Manticora\CMSBundle\Entity\Route", mappedBy="routeCollection")*/
+    private $routes;
 
     /** 
      * @Gedmo\TreeParent
@@ -73,11 +73,7 @@ class RouteCollection
      */
     private $root;
 
-    
-    
-   
 
-    
     public function __toString() {
         if($this->host == null && $this->prefix == null) return $this->title;
         return $this->host.$this->prefix;
@@ -109,7 +105,7 @@ class RouteCollection
      */
     public function __construct()
     {
-        $this->Routes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->routes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -249,10 +245,9 @@ class RouteCollection
      * @param \Manticora\CMSBundle\Entity\Route $routes
      * @return RouteCollection
      */
-    public function addRoute(\Manticora\CMSBundle\Entity\Route $routes)
+    public function addRoute(\Manticora\CMSBundle\Entity\Route $route)
     {
-        $this->Routes[] = $routes;
-
+        $this->routes->add($route);
         return $this;
     }
 
@@ -261,9 +256,9 @@ class RouteCollection
      *
      * @param \Manticora\CMSBundle\Entity\Route $routes
      */
-    public function removeRoute(\Manticora\CMSBundle\Entity\Route $routes)
+    public function removeRoute(\Manticora\CMSBundle\Entity\Route $route)
     {
-        $this->Routes->removeElement($routes);
+        $this->routes->removeElement($route);
     }
 
     /**
@@ -273,7 +268,7 @@ class RouteCollection
      */
     public function getRoutes()
     {
-        return $this->Routes;
+        return $this->routes;
     }
 
     /**
